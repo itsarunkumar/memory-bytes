@@ -39,6 +39,8 @@ export const actions: Actions = {
 					name: (name as string) || ''
 				}
 			});
+			console.log(user);
+			
 			const session = await auth.createSession({
 				userId: user.userId,
 				attributes: {}

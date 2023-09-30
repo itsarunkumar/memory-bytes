@@ -15,7 +15,7 @@
 		const { outputData, title } = event.detail;
 
 		saving = true;
-		await new Promise((resolve) => setTimeout(resolve, 3000));
+
 		const data = await fetch('/api/byte', {
 			method: 'POST',
 			body: JSON.stringify({
@@ -37,7 +37,6 @@
 		const { outputData, title } = event.detail;
 
 		saving = true;
-		await new Promise((resolve) => setTimeout(resolve, 3000));
 
 		const updateBytesRes = await fetch('/api/byte', {
 			method: 'PUT',
