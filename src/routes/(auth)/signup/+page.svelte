@@ -1,10 +1,22 @@
 <!-- routes/signup/+page.svelte -->
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { RotateCcw } from 'lucide-svelte';
+
+	$: loading = false;
 </script>
 
 <h1 class="text-5xl">Sign up</h1>
-<form method="post" use:enhance>
+<form
+	method="post"
+	use:enhance={() => {
+		loading = true;
+		return async ({ update }) => {
+			await update();
+			loading = false;
+		};
+	}}
+>
 	<div class="flex items-center flex-col">
 		<label for="name"
 			>name
@@ -23,7 +35,15 @@
 	</div>
 	<div class="flex gap-4 justify-center items-center flex-col-reverse py-5">
 		<a href="/login" class="text-blue-500">already have account ? signin</a>
-		<button class="bg-slate-900 text-slate-100 rounded-sm px-4 py-2 cursor-pointer">SignUp</button>
+		<button
+			class="bg-slate-900 text-slate-100 rounded-sm px-4 py-2 cursor-pointer flex items-center gap-2"
+		>
+			{#if loading}
+				creating... <RotateCcw class="w-4 h-4 animate-spin" />
+			{:else}
+				Sign up
+			{/if}
+		</button>
 	</div>
 </form>
 

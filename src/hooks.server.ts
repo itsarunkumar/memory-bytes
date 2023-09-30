@@ -1,6 +1,6 @@
 // src/hooks.server.ts
 import { auth } from '$lib/server/lucia';
-import type { Handle } from '@sveltejs/kit';
+import { redirect, type Handle } from '@sveltejs/kit';
 
 const public_routes = ['/', '/(auth)/login', '/(auth)/signup'];
 
@@ -17,9 +17,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	const user = await event.locals.auth.validate();
 
-	// if (!user && !public_routes.includes(event.route.id as string)) {
-	// 	throw redirect(302, '/login');
-	// }
+	if (!user && !public_routes.includes(event.route.id as string)) {
+		throw redirect(302, '/login');
+	}
 
 	return await resolve(event);
 };
