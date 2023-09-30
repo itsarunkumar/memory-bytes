@@ -1,5 +1,5 @@
 import { prisma } from '$lib/server/prisma';
-import type { PageServerLoad } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 
 export const load = (async ({ params, locals }) => {
 	const session = await locals.auth.validate();
@@ -39,3 +39,20 @@ export const load = (async ({ params, locals }) => {
 		folder
 	};
 }) satisfies PageServerLoad;
+
+export const actions: Actions = {
+	deleteByte: async ({ request, params }) => {
+		const formData = await request.formData();
+		const id = formData.get('id');
+
+		const deleteByte = await prisma.post.delete({
+			where: {
+				id: id as string
+			}
+		});
+
+		return {
+			deleteByte
+		};
+	}
+};

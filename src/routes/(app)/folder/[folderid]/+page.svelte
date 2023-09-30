@@ -4,6 +4,7 @@
 	import { clickOutsideAction } from '$lib/helpers/clickoutside';
 	import { Feather, MoreVertical, PenLine, SendHorizonal, Trash } from 'lucide-svelte';
 	import { formatDistanceToNow } from 'date-fns';
+	import { enhance } from '$app/forms';
 
 	export let data: PageData;
 	let openOptions: Record<string, boolean> = {};
@@ -11,15 +12,22 @@
 
 <div class="w-full flex justify-around items-center my-5">
 	<h1 class="text-3xl capitalize">{$page.data.folder.name}</h1>
-	<a
-		href="/editor?folderid={$page.params.folderid}"
-		class="px-5 py-2 rounded bg-primary text-primary-foreground"
-	>
-		new byte</a
-	>
+	<div>
+		<a href="/folder">back</a>
+		<a
+			href="/editor?folderid={$page.params.folderid}"
+			class="px-5 py-2 rounded bg-primary text-primary-foreground"
+		>
+			new byte</a
+		>
+	</div>
 </div>
 
 <div class="w-full flex items-center justify-center flex-col gap-5 max-sm:px-5">
+	{#if data.posts.length === 0}
+		<p>No Bytes. Create a Byte</p>
+	{/if}
+
 	{#each data.posts as post (post.id)}
 		<div
 			class="w-96 max-sm:w-full min-h-[50px] px-5 py-2 rounded-md border shadow-lg flex items-center justify-between"
@@ -59,9 +67,12 @@
 						>
 							Edit<PenLine class="w-4 h-4" /></a
 						>
-						<button class="flex gap-2 justify-between items-center text-lg">
-							Delete<Trash class="w-4 h-4" />
-						</button>
+						<form action="?/deleteByte" method="post" use:enhance>
+							<input type="text" name="id" value={post.id} hidden />
+							<button class="flex gap-2 justify-between items-center text-lg">
+								Delete<Trash class="w-4 h-4" />
+							</button>
+						</form>
 					</div>
 				{/if}
 			</div>

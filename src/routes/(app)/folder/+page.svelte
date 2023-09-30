@@ -76,7 +76,7 @@
 			}
 		}}
 		class="px-5 py-2 rounded bg-primary text-primary-foreground flex gap-2 items-center"
-		>new folder <FolderInput class="w-4 h-4" /> <code class="text-[8px]">press f</code>
+		>new folder <FolderInput class="w-4 h-4" />
 	</button>
 </div>
 
@@ -93,7 +93,6 @@
 			out:fly
 			in:slide
 		>
-			<img src="https://rstr.in/ee3j70q5p5zq4a/my-library/YWGJUAn-XVK" alt="" class="" />
 			<h1 class="text-lg font-semibold px-2 py-0.5 flex self-start capitalize">{folder.name}</h1>
 			<span class="text-muted-foreground text-sm px-2 py-1 flex self-start"
 				><Files class="w-4 h-4" /> : {folder._count.posts}</span
