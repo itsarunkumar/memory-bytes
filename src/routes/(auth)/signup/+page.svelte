@@ -2,6 +2,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { RotateCcw } from 'lucide-svelte';
+	export let form;
 
 	$: loading = false;
 </script>

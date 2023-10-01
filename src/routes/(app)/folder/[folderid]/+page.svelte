@@ -12,11 +12,11 @@
 
 <div class="w-full flex justify-around items-center my-5">
 	<h1 class="text-3xl capitalize">{$page.data.folder.name}</h1>
-	<div>
+	<div class="flex gap-2 items-center">
 		<a href="/folder">back</a>
 		<a
 			href="/editor?folderid={$page.params.folderid}"
-			class="px-5 py-2 rounded bg-primary text-primary-foreground"
+			class="px-3 py-2 rounded bg-primary text-primary-foreground"
 		>
 			new byte</a
 		>
