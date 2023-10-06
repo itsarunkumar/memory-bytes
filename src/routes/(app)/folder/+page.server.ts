@@ -39,7 +39,6 @@ export const load: PageServerLoad<LoadResult> = async ({ locals }) => {
 	});
 
 	await redis.set(`folders:${session?.user.userId}`, JSON.stringify(folders)); // Cache the folders
-	await redis.expire(`folders:${session?.user.userId}`, 60);
 
 	return {
 		folders
