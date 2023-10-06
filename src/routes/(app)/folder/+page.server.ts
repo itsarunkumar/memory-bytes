@@ -1,7 +1,7 @@
 import { prisma } from '$lib/server/prisma';
 import type { Folder } from '@prisma/client';
 import type { Actions, PageServerLoad } from './$types';
-import { redis } from '$lib/server/redis';
+// import { redis } from '$lib/server/redis';
 
 interface LoadResult {
 	folders: (Folder & {
@@ -14,13 +14,13 @@ interface LoadResult {
 export const load: PageServerLoad<LoadResult> = async ({ locals }) => {
 	const session = await locals.auth.validate();
 
-	const cachedFolders = await redis.get(`folders:${session?.user.userId}`);
-	if (cachedFolders) {
-		console.log('Cached folders:', cachedFolders);
-		return {
-			folders: cachedFolders as LoadResult['folders'] // Parse cached data
-		};
-	}
+	// const cachedFolders = await redis.get(`folders:${session?.user.userId}`);
+	// if (cachedFolders) {
+	// 	console.log('Cached folders:', cachedFolders);
+	// 	return {
+	// 		folders: cachedFolders as LoadResult['folders'] // Parse cached data
+	// 	};
+	// }
 
 	const folders = await prisma.folder.findMany({
 		where: {
@@ -38,7 +38,7 @@ export const load: PageServerLoad<LoadResult> = async ({ locals }) => {
 		}
 	});
 
-	await redis.set(`folders:${session?.user.userId}`, JSON.stringify(folders)); // Cache the folders
+	// await redis.set(`folders:${session?.user.userId}`, JSON.stringify(folders)); // Cache the folders
 
 	return {
 		folders
@@ -59,7 +59,7 @@ export const actions: Actions = {
 		});
 
 		// Remove the cached data for folders since it's changed
-		await redis.del(`folders:${session?.user.userId}`);
+		// await redis.del(`folders:${session?.user.userId}`);
 
 		return {
 			newFolder
@@ -77,7 +77,7 @@ export const actions: Actions = {
 		});
 
 		// Remove the cached data for folders since it's changed
-		await redis.del(`folders:${session?.user.userId}`);
+		// await redis.del(`folders:${session?.user.userId}`);
 
 		return {
 			deleteFolder
