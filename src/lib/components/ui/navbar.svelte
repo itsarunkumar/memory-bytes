@@ -3,7 +3,6 @@
 	import { page } from '$app/stores';
 	import { PowerOffIcon, User } from 'lucide-svelte';
 	import type { SvelteComponent } from 'svelte';
-	
 </script>
 
 <nav class="w-full flex justify-around items-center h-16 border-b">
@@ -14,6 +13,7 @@
 		{#if $page.data.loggedIn}
 			<a href="/profile" class="hover:underline transition-all">Profile</a>
 			<a href="/folder">Bytes</a>
+			<a href="/daily">Daily</a>
 		{:else}
 			<a href="/login">Login</a>
 			<a href="/signup">Signup</a>

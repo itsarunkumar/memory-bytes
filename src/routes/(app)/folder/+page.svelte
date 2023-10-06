@@ -1,4 +1,5 @@
 <script lang="ts">
+	// @ts-ignore
 	import type { PageData } from './$types';
 	import Modal from '$lib/components/ui/modal.svelte';
 	import { enhance } from '$app/forms';
@@ -104,9 +105,11 @@
 			in:slide
 		>
 			<h1 class="text-lg font-semibold px-2 py-0.5 flex self-start capitalize">{folder.name}</h1>
-			<span class="text-muted-foreground text-sm px-2 py-1 flex self-start"
-				><Files class="w-4 h-4" /> : {folder._count.posts}</span
-			>
+			<span class="text-muted-foreground text-sm px-2 py-1 flex self-start">
+				{#if folder}
+					<Files class="w-4 h-4" /> : {folder._count.posts}
+				{/if}
+			</span>
 			<div class="flex gap-2 justify-between w-full items-center border-t">
 				<a
 					href="/folder/{folder.id}?name={folder.name}"
